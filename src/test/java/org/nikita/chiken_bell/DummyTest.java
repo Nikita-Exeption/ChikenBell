@@ -1,4 +1,4 @@
-package org.nikita;
+package org.nikita.chiken_bell;
 
 import org.junit.jupiter.api.Test;
 
