@@ -9,20 +9,23 @@ public class Customer {
     private String adress;
 
     public Customer(String name, String phone){
-        isEmptyPhone(phone);
+        isPhoneCheck(phone);
         this.name = name;
         this.phone = phone;
     }
 
     public Customer(String name, String phone, String adress){
-        isEmptyPhone(phone);
+        isPhoneCheck(phone);
         this.name = name;
         this.phone = phone;
         this.adress = adress;
     }
 
-    private void isEmptyPhone(String phone){
+    private void isPhoneCheck(String phone){
         if (phone.isBlank()){
+            throw new UnsupportedOperationException();
+        }
+        if(!phone.matches("[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}")){
             throw new UnsupportedOperationException();
         }
     }
