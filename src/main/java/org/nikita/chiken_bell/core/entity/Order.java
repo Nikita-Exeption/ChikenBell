@@ -17,7 +17,7 @@ public class Order {
             throw new CustomerAdressEmptyException();
         }
         this.sum = counterSum(cart.getProducts());
-        this.products = Collections.unmodifiableList(cart.getProducts());
+        this.products = cart.getProducts();
     }
 
     private BigDecimal counterSum(List<Product> products){
@@ -33,7 +33,7 @@ public class Order {
     }
 
     public List<Product> getProducts() {
-        return products;
+        return Collections.unmodifiableList(products);
     }
 
     @Override

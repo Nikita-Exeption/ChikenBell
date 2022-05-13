@@ -16,6 +16,12 @@ class ProductTest {
 
         assertEquals(TITLE, product.getTitle());
         assertEquals(BigDecimal.TEN, product.getPrice());
+
+        product.setPrice(BigDecimal.ONE);
+        product.setTitle("Title");
+
+        assertEquals(product.getPrice(), BigDecimal.ONE);
+        assertEquals(product.getTitle(), "Title");
     }
 
 }

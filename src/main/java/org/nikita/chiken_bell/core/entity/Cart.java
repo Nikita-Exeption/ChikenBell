@@ -11,10 +11,9 @@ public class Cart {
 
     private final List<Product> products = new ArrayList<>();
 
-    public List<Product> addProduct(Product product){
+    public void addProduct(Product product){
         sum = sum.add(product.getPrice());
         products.add(product);
-        return Collections.unmodifiableList(products);
     }
 
     public void removeProduct(Product product){

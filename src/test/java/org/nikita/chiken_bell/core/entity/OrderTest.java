@@ -35,6 +35,7 @@ class OrderTest {
         Order order = new Order(cart, customer, false);
 
         BigDecimal expected = BigDecimal.TEN;
+        assertEquals(1,order.getProducts().size());
         assertEquals(expected, order.getSum());
     }
 

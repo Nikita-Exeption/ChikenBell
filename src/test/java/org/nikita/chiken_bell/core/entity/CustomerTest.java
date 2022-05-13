@@ -18,6 +18,7 @@ class CustomerTest {
 
         assertEquals(NAME, customer.getName());
         assertEquals(ADRESS, customer.getAdress());
+        assertEquals(PHONE, customer.getPhone());
     }
 
     @Test
