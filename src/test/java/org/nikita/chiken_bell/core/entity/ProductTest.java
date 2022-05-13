@@ -12,7 +12,7 @@ class ProductTest {
 
     @Test
     void testInitItem(){
-        Product product = new Product("Apple", BigDecimal.TEN);
+        Product product = new Product(TITLE, BigDecimal.TEN);
 
         assertEquals(TITLE, product.getTitle());
         assertEquals(BigDecimal.TEN, product.getPrice());

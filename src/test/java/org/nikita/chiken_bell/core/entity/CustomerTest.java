@@ -14,7 +14,7 @@ class CustomerTest {
 
     @Test
     void testInitCustomerWithCorrectPHONE(){
-        Customer customer = new Customer("Name", "123-456-78-90", "Adress");
+        Customer customer = new Customer(NAME, PHONE, ADRESS);
 
         assertEquals(NAME, customer.getName());
         assertEquals(ADRESS, customer.getAdress());
@@ -22,21 +22,21 @@ class CustomerTest {
 
     @Test
     void testInitCustomerWithIncorrectPHONE(){
-        assertThrows(PhoneIncorrectException.class, () -> new Customer("Name", "1234567"));
+        assertThrows(PhoneIncorrectException.class, () -> new Customer(NAME, "123425436"));
     }
 
     @Test
     void testInitCustomerWithEmptyPHONE(){
-        assertThrows(PhoneEmptyException.class, () -> new Customer("name", ""));
+        assertThrows(PhoneEmptyException.class, () -> new Customer(NAME, ""));
     }
 
     @Test
     void testInitCustomerWithoutADRESS(){
-        Customer customer = new Customer("Name", "123-456-78-90");
+        Customer customer = new Customer(NAME, PHONE);
 
         assertNull(customer.getAdress());
 
-        customer.setAdress("Adress");
+        customer.setAdress(ADRESS);
 
         assertNotNull(customer.getAdress());
     }
