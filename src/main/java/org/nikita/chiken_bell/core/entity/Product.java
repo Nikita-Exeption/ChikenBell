@@ -1,4 +1,4 @@
-package org.nikita.chiken_bell.entity;
+package org.nikita.chiken_bell.core.entity;
 
 import java.math.BigDecimal;
 

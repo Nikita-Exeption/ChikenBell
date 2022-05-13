@@ -1,7 +1,8 @@
-package org.nikita.chiken_bell.entity;
+package org.nikita.chiken_bell.core.entity;
+
+import org.nikita.chiken_bell.core.exception.CustomerAdressEmptyException;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class Order {
 
     public Order(Cart cart, Customer customer, boolean isDelivery){
         if (isDelivery && (customer.getAdress() == null || customer.getAdress().isBlank())){
-            throw new UnsupportedOperationException();
+            throw new CustomerAdressEmptyException();
         }
         this.sum = counterSum(cart.getProducts());
         this.products = Collections.unmodifiableList(cart.getProducts());
@@ -32,7 +33,7 @@ public class Order {
     }
 
     public List<Product> getProducts() {
-        return products;
+        return Collections.unmodifiableList(products);
     }
 
     @Override

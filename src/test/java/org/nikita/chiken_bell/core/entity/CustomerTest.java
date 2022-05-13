@@ -1,6 +1,8 @@
-package org.nikita.chiken_bell.entity;
+package org.nikita.chiken_bell.core.entity;
 
 import org.junit.jupiter.api.Test;
+import org.nikita.chiken_bell.core.exception.PhoneEmptyException;
+import org.nikita.chiken_bell.core.exception.PhoneIncorrectException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,12 +19,12 @@ class CustomerTest {
 
     @Test
     void testInitCustomerWithIncorrectPhone(){
-        assertThrows(UnsupportedOperationException.class, () -> new Customer("Name", "1234567"));
+        assertThrows(PhoneIncorrectException.class, () -> new Customer("Name", "1234567"));
     }
 
     @Test
     void testInitCustomerWithEmptyPhone(){
-        assertThrows(UnsupportedOperationException.class, () -> new Customer("name", ""));
+        assertThrows(PhoneEmptyException.class, () -> new Customer("name", ""));
     }
 
     @Test

@@ -1,7 +1,8 @@
-package org.nikita.chiken_bell.entity;
+package org.nikita.chiken_bell.core.entity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Cart {
@@ -22,7 +23,7 @@ public class Cart {
     }
 
     public List<Product> getProducts(){
-        return products;
+        return Collections.unmodifiableList(products);
     }
 
     public BigDecimal getSum() {
