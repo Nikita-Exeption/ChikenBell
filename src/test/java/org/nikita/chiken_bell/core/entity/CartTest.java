@@ -1,6 +1,7 @@
 package org.nikita.chiken_bell.core.entity;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -9,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CartTest {
 
-    private static Cart cart;
-    private static Product product;
+    private Cart cart;
+    private Product product;
 
-    @BeforeAll
-    static void init(){
+    @BeforeEach
+    void init(){
         cart = new Cart();
         product = new Product("Apple", BigDecimal.TEN);
     }

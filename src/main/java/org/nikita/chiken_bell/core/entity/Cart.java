@@ -14,7 +14,7 @@ public class Cart {
     public List<Product> addProduct(Product product){
         sum = sum.add(product.getPrice());
         products.add(product);
-        return products;
+        return Collections.unmodifiableList(products);
     }
 
     public void removeProduct(Product product){
