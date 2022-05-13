@@ -11,6 +11,7 @@ public class Customer {
 
     private String adress;
 
+
     public Customer(String name, String phone){
         phoneEmptyAndCorrectCheck(phone);
         this.name = name;
@@ -18,19 +19,8 @@ public class Customer {
     }
 
     public Customer(String name, String phone, String adress){
-        phoneEmptyAndCorrectCheck(phone);
-        this.name = name;
-        this.phone = phone;
+        this(name, phone);
         this.adress = adress;
-    }
-
-    private void phoneEmptyAndCorrectCheck(String phone){
-        if (phone.isBlank()){
-            throw new PhoneEmptyException();
-        }
-        if(!phone.matches("[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}")){
-            throw new PhoneIncorrectException();
-        }
     }
 
     public String getName() {
@@ -47,5 +37,14 @@ public class Customer {
 
     public void setAdress(String adress) {
         this.adress = adress;
+    }
+
+    private void phoneEmptyAndCorrectCheck(String phone){
+        if (phone.isBlank()){
+            throw new PhoneEmptyException();
+        }
+        if(!phone.matches("[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}")){
+            throw new PhoneIncorrectException();
+        }
     }
 }

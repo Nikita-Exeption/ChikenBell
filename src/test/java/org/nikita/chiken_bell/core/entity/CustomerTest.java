@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CustomerTest {
 
     @Test
-    void testInitCustomerWithCorrectPhone(){
+    void testInitCustomerWithCorrectPHONE(){
         Customer customer = new Customer("Name", "123-456-78-90", "Adress");
 
         String expected = "Name";
@@ -18,17 +18,17 @@ class CustomerTest {
     }
 
     @Test
-    void testInitCustomerWithIncorrectPhone(){
+    void testInitCustomerWithIncorrectPHONE(){
         assertThrows(PhoneIncorrectException.class, () -> new Customer("Name", "1234567"));
     }
 
     @Test
-    void testInitCustomerWithEmptyPhone(){
+    void testInitCustomerWithEmptyPHONE(){
         assertThrows(PhoneEmptyException.class, () -> new Customer("name", ""));
     }
 
     @Test
-    void testInitCustomerWithoutAdress(){
+    void testInitCustomerWithoutADRESS(){
         Customer customer = new Customer("Name", "123-456-78-90");
 
         assertNull(customer.getAdress());
