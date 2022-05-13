@@ -2,6 +2,7 @@ package org.nikita.chiken_bell.core.entity;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.nikita.chiken_bell.core.exception.CustomerAdressEmptyException;
 
 import java.math.BigDecimal;
 
@@ -42,7 +43,7 @@ class OrderTest {
     @Test
     void testInitOrderWithDeliveryButNotHaveAdress(){
         Customer customer = new Customer("Nik", "123-456-78-90");
-        assertThrows(UnsupportedOperationException.class, ()-> new Order(cart, customer, true));
+        assertThrows(CustomerAdressEmptyException.class, ()-> new Order(cart, customer, true));
     }
 
 }
