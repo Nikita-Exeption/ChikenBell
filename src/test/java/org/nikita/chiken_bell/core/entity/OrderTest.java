@@ -13,8 +13,6 @@ class OrderTest {
 
     private static Cart cart;
 
-
-
     @BeforeAll
     static void init(){
         cart = new Cart();

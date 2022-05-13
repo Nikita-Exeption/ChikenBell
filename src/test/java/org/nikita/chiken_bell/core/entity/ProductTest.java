@@ -8,12 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductTest {
 
+    private static final String TITLE = "Apple";
+
     @Test
     void testInitItem(){
         Product product = new Product("Apple", BigDecimal.TEN);
 
-        String expected = "Apple";
-        assertEquals(expected, product.getTitle());
+        assertEquals(TITLE, product.getTitle());
         assertEquals(BigDecimal.TEN, product.getPrice());
     }
 

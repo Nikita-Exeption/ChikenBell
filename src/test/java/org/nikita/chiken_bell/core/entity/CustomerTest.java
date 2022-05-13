@@ -8,13 +8,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerTest {
 
+    private static final String NAME = "Name";
+    private static final String PHONE = "123-456-78-90";
+    private static final String ADRESS = "Adress";
+
     @Test
     void testInitCustomerWithCorrectPHONE(){
         Customer customer = new Customer("Name", "123-456-78-90", "Adress");
 
-        String expected = "Name";
-        assertEquals(expected, customer.getName());
-        assertEquals("Adress", customer.getAdress());
+        assertEquals(NAME, customer.getName());
+        assertEquals(ADRESS, customer.getAdress());
     }
 
     @Test
