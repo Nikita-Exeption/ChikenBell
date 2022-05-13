@@ -3,7 +3,12 @@ package org.nikita.chiken_bell.core.entity;
 import org.nikita.chiken_bell.core.exception.PhoneEmptyException;
 import org.nikita.chiken_bell.core.exception.PhoneIncorrectException;
 
+import java.util.Objects;
+import java.util.UUID;
+
 public class Customer {
+
+    private final String id;
 
     private final String name;
 
@@ -11,9 +16,9 @@ public class Customer {
 
     private String adress;
 
-
     public Customer(String name, String phone){
         phoneEmptyAndCorrectCheck(phone);
+        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.phone = phone;
     }
@@ -39,14 +44,33 @@ public class Customer {
         this.adress = adress;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(id, customer.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
     private void phoneEmptyAndCorrectCheck(String phone){
-        if (phone.isBlank()){
+        if(phone.isBlank()){
             throw new PhoneEmptyException();
         }
         if(!phone.matches("[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}")){
             throw new PhoneIncorrectException();
         }
     }
+
+
 
 
 }

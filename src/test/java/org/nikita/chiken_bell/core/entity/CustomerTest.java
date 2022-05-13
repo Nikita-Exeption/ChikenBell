@@ -42,4 +42,17 @@ class CustomerTest {
         assertNotNull(customer.getAdress());
     }
 
+    @Test
+    void testEqualsSameObjects(){
+        Customer customer = new Customer(NAME, PHONE);
+        assertSame(customer, customer);
+    }
+
+    @Test
+    void testEqualsNotSameObjects(){
+        Customer customer = new Customer(NAME, PHONE);
+        Customer customer1 = new Customer("Jack", "012-345-67-89");
+        assertNotSame(customer, customer1);
+    }
+
 }
