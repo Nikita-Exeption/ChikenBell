@@ -1,6 +1,7 @@
 package org.nikita.chiken_bell.entity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,7 +11,10 @@ public class Order {
 
     private List<Product> products;
 
-    public Order(Cart cart){
+    public Order(Cart cart, Customer customer, boolean isDelivery){
+        if (isDelivery && (customer.getAdress() == null || customer.getAdress().isBlank())){
+            throw new UnsupportedOperationException();
+        }
         this.sum = counterSum(cart.getProducts());
         this.products = Collections.unmodifiableList(cart.getProducts());
     }
@@ -29,5 +33,13 @@ public class Order {
 
     public List<Product> getProducts() {
         return products;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "sum=" + sum +
+                ", products=" + products +
+                '}';
     }
 }

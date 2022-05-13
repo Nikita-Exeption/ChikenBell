@@ -17,6 +17,7 @@ public class Cart {
     }
 
     public void removeProduct(Product product){
+        sum = sum.subtract(product.getPrice());
         products.remove(product);
     }
 
@@ -28,4 +29,11 @@ public class Cart {
         return sum;
     }
 
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "sum=" + sum +
+                ", products=" + products +
+                '}';
+    }
 }
