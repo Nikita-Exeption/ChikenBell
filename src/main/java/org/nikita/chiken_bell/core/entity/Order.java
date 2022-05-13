@@ -8,9 +8,9 @@ import java.util.List;
 
 public class Order {
 
-    private BigDecimal sum;
+    private final BigDecimal sum;
 
-    private List<Product> products;
+    private final List<Product> products;
 
     public Order(Cart cart, Customer customer, boolean isDelivery){
         if (isDelivery && (customer.getAdress() == null || customer.getAdress().isBlank())){
@@ -33,7 +33,7 @@ public class Order {
     }
 
     public List<Product> getProducts() {
-        return Collections.unmodifiableList(products);
+        return products;
     }
 
     @Override

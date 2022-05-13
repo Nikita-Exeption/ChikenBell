@@ -5,9 +5,9 @@ import org.nikita.chiken_bell.core.exception.PhoneIncorrectException;
 
 public class Customer {
 
-    private String name;
+    private final String name;
 
-    private String phone;
+    private final String phone;
 
     private String adress;
 

@@ -9,7 +9,7 @@ public class Cart {
 
     private BigDecimal sum = BigDecimal.ZERO;
 
-    private List<Product> products = new ArrayList<>();
+    private final List<Product> products = new ArrayList<>();
 
     public List<Product> addProduct(Product product){
         sum = sum.add(product.getPrice());
