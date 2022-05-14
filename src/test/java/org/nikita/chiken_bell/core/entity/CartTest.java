@@ -41,7 +41,7 @@ class CartTest {
 
     @Test
     void testAddProductNull(){
-        assertThrows(ProductNotFoundException.class, () -> cart.addProduct(null));
+        assertThrows(NullPointerException.class, () -> cart.addProduct(null));
     }
 
     @Test
@@ -63,22 +63,5 @@ class CartTest {
     void testGenerateAnotherId(){
         Cart cart1 = new Cart();
         assertNotEquals(cart.getId(), cart1.getId());
-    }
-
-    @Test
-    void testCreateItemWithAddress(){
-        cart = new Cart("Address");
-
-        assertEquals("Address", cart.getAddress());
-    }
-
-    @Test
-    void testSetterAdress(){
-        assertNull(cart.getAddress());
-
-        cart.setAddress("Adress");
-
-        assertNotNull(cart.getAddress());
-        assertEquals("Adress", cart.getAddress());
     }
 }

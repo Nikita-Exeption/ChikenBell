@@ -1,6 +1,5 @@
 package org.nikita.chiken_bell.core.entity;
 
-import org.nikita.chiken_bell.core.exception.CustomerAdressEmptyException;
 import org.nikita.chiken_bell.core.exception.ProductNotFoundException;
 
 import java.math.BigDecimal;
@@ -12,18 +11,10 @@ public class Cart {
 
     private BigDecimal sum = BigDecimal.ZERO;
 
-    private String address;
-
     private final List<Product> products = new ArrayList<>();
 
     public Cart(){
         this.id = UUID.randomUUID().toString();
-    }
-
-    public Cart(String address){
-        this();
-        checkAddress(address);
-        this.address = address;
     }
 
     public void addProduct(Product product){
@@ -41,11 +32,6 @@ public class Cart {
         }else {
             throw new ProductNotFoundException();
         }
-    }
-
-    public void setAddress(String address){
-        checkAddress(address);
-        this.address = address;
     }
 
     @Override
@@ -80,15 +66,5 @@ public class Cart {
 
     public String getId() {
         return id;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    private void checkAddress(String address){
-        if (address.isBlank()){
-            throw new CustomerAdressEmptyException();
-        }
     }
 }

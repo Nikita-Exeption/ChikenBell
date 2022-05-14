@@ -54,4 +54,18 @@ class OrderTest {
         assertNotEquals(customer1.getId(), customer.getId());
     }
 
+    @Test
+    void testInitOrderWithAddress(){
+        Customer customer = new Customer(NAME, PHONE, "Address");
+
+        Order order = new Order(cart, customer, true);
+        assertNotNull(order.getDeliveryAddress());
+    }
+
+    @Test
+    void testSameOrder(){
+        Customer customer = new Customer(NAME, PHONE);
+        Order order = new Order(cart, customer, false);
+        assertEquals(order.getId(), order.getId());
+    }
 }

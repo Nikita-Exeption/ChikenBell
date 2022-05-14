@@ -14,12 +14,18 @@ public class Order {
 
     private final BigDecimal sum;
 
+    private final String deliveryAddress;
+
+    private final boolean isDelivery;
+
     private final List<Product> products;
 
     public Order(Cart cart, Customer customer, boolean isDelivery){
-        checkAddress(customer.getAdress(), isDelivery);
+        this.isDelivery = isDelivery;
+        checkAddress(customer.getAdress());
         this.id = UUID.randomUUID().toString();
         this.sum = cart.getSum();
+        this.deliveryAddress = customer.getAdress();
         this.products = cart.getProducts();
     }
 
@@ -29,6 +35,18 @@ public class Order {
 
     public List<Product> getProducts() {
         return Collections.unmodifiableList(products);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public boolean isDelivery() {
+        return isDelivery;
     }
 
     @Override
@@ -53,8 +71,8 @@ public class Order {
         return Objects.hash(id);
     }
 
-    private void checkAddress(String address, boolean isDelivery){
-        if (isDelivery && (address == null || address.isBlank())){
+    private void checkAddress(String address){
+        if (isDelivery() && (address == null || address.isBlank())){
             throw new CustomerAdressEmptyException();
         }
     }
