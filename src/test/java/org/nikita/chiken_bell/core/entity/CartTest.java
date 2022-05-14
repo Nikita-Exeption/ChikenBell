@@ -20,23 +20,32 @@ class CartTest {
     }
 
     @Test
+    void testInitEmptyCart(){
+        cart = new Cart();
+        assertNotNull(cart.getId());
+        assertEquals(BigDecimal.ZERO, cart.getSum());
+        assertEquals(0, cart.getProducts().size());
+    }
+
+    @Test
     void testAddProduct() {
         cart.addProduct(product);
 
-        BigDecimal expected = BigDecimal.TEN;
         assertNotNull(cart.getProducts());
-        assertEquals(expected, cart.getSum());
+        assertEquals(product.getPrice(), cart.getSum());
     }
 
     @Test
     void testRemoveProduct() {
         cart.addProduct(product);
         assertEquals(1, cart.getProducts().size());
+        assertEquals(product.getPrice(), cart.getSum());
 
         cart.removeProduct(product);
 
         int expected = 0;
         assertEquals(expected, cart.getProducts().size());
+        assertEquals(BigDecimal.ZERO, cart.getSum());
     }
 
     @Test
@@ -46,17 +55,7 @@ class CartTest {
 
     @Test
     void testNotHaveThisProductInListProducts(){
-        cart.addProduct(product);
-        assertEquals(1, cart.getProducts().size());
-
-        cart.addProduct(new Product("Pizza", BigDecimal.TEN));
-        assertEquals(2, cart.getProducts().size());
-
-        cart.removeProduct(product);
-        assertEquals(1, cart.getProducts().size());
-
-        assertThrows(ProductNotFoundException.class, () ->cart.removeProduct(new Product("Burger", BigDecimal.ONE)));
-
+        assertThrows(ProductNotFoundException.class, () -> cart.removeProduct(new Product("Burger", BigDecimal.ONE)));
     }
 
     @Test

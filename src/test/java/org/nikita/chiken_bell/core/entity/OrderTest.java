@@ -12,8 +12,9 @@ class OrderTest {
 
     private static Cart cart;
 
-    private static final String NAME = "Nik";
-    private static final String PHONE = "123-456-78-90";
+    private static final String CUSTOMER_NAME = "Nik";
+    private static final String CUSTOMER_PHONE = "123-456-78-90";
+    private static final String CUSTOMER_ADDRESS = "Address";
 
     @BeforeAll
     static void init(){
@@ -24,48 +25,32 @@ class OrderTest {
 
     @Test
     void testInitOrderWithDelivery(){
-        Customer customer = new Customer(NAME, PHONE, "Adress");
+        Customer customer = new Customer(CUSTOMER_NAME, CUSTOMER_PHONE, CUSTOMER_ADDRESS);
         Order order = new Order(cart, customer, true);
 
-        BigDecimal expected = BigDecimal.TEN;
-        assertEquals(expected, order.getSum());
+        assertNotNull(order.getId());
+        assertEquals(cart.getSum(), order.getSum());
+        assertEquals(CUSTOMER_ADDRESS, order.getDeliveryAddress());
+        assertTrue(order.isDelivery());
+        //check product list
+        assertTrue(cart.getProducts().containsAll(order.getProducts()));
     }
 
     @Test
     void testInitOrderWithoutDelivery(){
-        Customer customer = new Customer(NAME, PHONE, "Adress");
+        Customer customer = new Customer(CUSTOMER_NAME, CUSTOMER_PHONE, CUSTOMER_ADDRESS);
         Order order = new Order(cart, customer, false);
 
         BigDecimal expected = BigDecimal.TEN;
-        assertEquals(1,order.getProducts().size());
+        // check product list
+        assertTrue(cart.getProducts().containsAll(order.getProducts()));
+
         assertEquals(expected, order.getSum());
     }
 
     @Test
-    void testInitOrderWithDeliveryButNotHaveAdress(){
-        Customer customer = new Customer(NAME, PHONE);
+    void testInitOrderWithDeliveryButNotHaveAddress(){
+        Customer customer = new Customer(CUSTOMER_NAME, CUSTOMER_PHONE);
         assertThrows(CustomerAdressEmptyException.class, ()-> new Order(cart, customer, true));
-    }
-
-    @Test
-    void testGeneratedAnotherId(){
-        Customer customer = new Customer(NAME, PHONE);
-        Customer customer1 = new Customer("Mike", "012-345-67-89");
-        assertNotEquals(customer1.getId(), customer.getId());
-    }
-
-    @Test
-    void testInitOrderWithAddress(){
-        Customer customer = new Customer(NAME, PHONE, "Address");
-
-        Order order = new Order(cart, customer, true);
-        assertNotNull(order.getDeliveryAddress());
-    }
-
-    @Test
-    void testSameOrder(){
-        Customer customer = new Customer(NAME, PHONE);
-        Order order = new Order(cart, customer, false);
-        assertEquals(order.getId(), order.getId());
     }
 }

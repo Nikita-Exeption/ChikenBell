@@ -14,6 +14,7 @@ class ProductTest {
     void testInitItem(){
         Product product = new Product(TITLE, BigDecimal.TEN);
 
+        assertNotNull(product.getId());
         assertEquals(TITLE, product.getTitle());
         assertEquals(BigDecimal.TEN, product.getPrice());
 
