@@ -10,11 +10,11 @@ public interface ProductService {
 
     Product create(String title, BigDecimal price);
 
+    Product update(String id, String title, BigDecimal price);
+
     Optional<Product> getById(String id);
 
     Collection<Product> getAll();
 
     void deleteById(String id);
-    //update
-    Product update(String id, String title, BigDecimal price);
 }
