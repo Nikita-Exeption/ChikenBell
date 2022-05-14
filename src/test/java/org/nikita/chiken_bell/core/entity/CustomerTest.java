@@ -18,7 +18,7 @@ class CustomerTest {
 
         assertNotNull(customer.getId());
         assertEquals(NAME, customer.getName());
-        assertEquals(ADRESS, customer.getAdress());
+        assertEquals(ADRESS, customer.getAddress());
         assertEquals(PHONE, customer.getPhone());
     }
 
@@ -36,12 +36,12 @@ class CustomerTest {
     void testInitCustomerWithoutADRESS(){
         Customer customer = new Customer(NAME, PHONE);
 
-        assertNull(customer.getAdress());
+        assertNull(customer.getAddress());
 
-        customer.setAdress(ADRESS);
+        customer.setAddress(ADRESS);
 
-        assertNotNull(customer.getAdress());
-        assertEquals(ADRESS, customer.getAdress());
+        assertNotNull(customer.getAddress());
+        assertEquals(ADRESS, customer.getAddress());
     }
 
     @Test

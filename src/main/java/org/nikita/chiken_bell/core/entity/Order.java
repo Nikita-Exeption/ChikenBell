@@ -22,10 +22,10 @@ public class Order {
 
     public Order(Cart cart, Customer customer, boolean isDelivery){
         this.isDelivery = isDelivery;
-        checkAddress(customer.getAdress());
+        checkAddress(customer.getAddress());
         this.id = UUID.randomUUID().toString();
         this.sum = cart.getSum();
-        this.deliveryAddress = customer.getAdress();
+        this.deliveryAddress = customer.getAddress();
         this.products = cart.getProducts();
     }
 
