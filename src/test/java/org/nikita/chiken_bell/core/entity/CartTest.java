@@ -2,8 +2,7 @@ package org.nikita.chiken_bell.core.entity;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.nikita.chiken_bell.core.exception.ProductNotFoundInListProductException;
-import org.nikita.chiken_bell.core.exception.ProductNotHasInitialized;
+import org.nikita.chiken_bell.core.exception.ProductNotFoundException;
 
 import java.math.BigDecimal;
 
@@ -42,7 +41,7 @@ class CartTest {
 
     @Test
     void testAddProductNull(){
-        assertThrows(ProductNotHasInitialized.class, () -> cart.addProduct(null));
+        assertThrows(ProductNotFoundException.class, () -> cart.addProduct(null));
     }
 
     @Test
@@ -56,7 +55,7 @@ class CartTest {
         cart.removeProduct(product);
         assertEquals(1, cart.getProducts().size());
 
-        assertThrows(ProductNotFoundInListProductException.class, () ->cart.removeProduct(new Product("Burger", BigDecimal.ONE)));
+        assertThrows(ProductNotFoundException.class, () ->cart.removeProduct(new Product("Burger", BigDecimal.ONE)));
 
     }
 
@@ -64,5 +63,22 @@ class CartTest {
     void testGenerateAnotherId(){
         Cart cart1 = new Cart();
         assertNotEquals(cart.getId(), cart1.getId());
+    }
+
+    @Test
+    void testCreateItemWithAddress(){
+        cart = new Cart("Address");
+
+        assertEquals("Address", cart.getAddress());
+    }
+
+    @Test
+    void testSetterAdress(){
+        assertNull(cart.getAddress());
+
+        cart.setAddress("Adress");
+
+        assertNotNull(cart.getAddress());
+        assertEquals("Adress", cart.getAddress());
     }
 }

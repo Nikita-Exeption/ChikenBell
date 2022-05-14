@@ -17,7 +17,7 @@ public class Customer {
     private String adress;
 
     public Customer(String name, String phone){
-        phoneEmptyAndCorrectCheck(phone);
+        checkPhone(phone);
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.phone = phone;
@@ -61,7 +61,7 @@ public class Customer {
         return Objects.hash(id);
     }
 
-    private void phoneEmptyAndCorrectCheck(String phone){
+    private void checkPhone(String phone){
         if(phone.isBlank()){
             throw new PhoneEmptyException();
         }

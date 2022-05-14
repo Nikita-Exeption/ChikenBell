@@ -1,13 +1,10 @@
 package org.nikita.chiken_bell.core.entity;
 
-import org.nikita.chiken_bell.core.exception.ProductNotFoundInListProductException;
-import org.nikita.chiken_bell.core.exception.ProductNotHasInitialized;
+import org.nikita.chiken_bell.core.exception.CustomerAdressEmptyException;
+import org.nikita.chiken_bell.core.exception.ProductNotFoundException;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Cart {
 
@@ -15,15 +12,23 @@ public class Cart {
 
     private BigDecimal sum = BigDecimal.ZERO;
 
+    private String address;
+
     private final List<Product> products = new ArrayList<>();
 
     public Cart(){
         this.id = UUID.randomUUID().toString();
     }
 
+    public Cart(String address){
+        this();
+        checkAddress(address);
+        this.address = address;
+    }
+
     public void addProduct(Product product){
         if (product == null){
-            throw new ProductNotHasInitialized();
+            throw new NullPointerException();
         }
         sum = sum.add(product.getPrice());
         products.add(product);
@@ -34,8 +39,35 @@ public class Cart {
             sum = sum.subtract(product.getPrice());
             products.remove(product);
         }else {
-            throw new ProductNotFoundInListProductException();
+            throw new ProductNotFoundException();
         }
+    }
+
+    public void setAddress(String address){
+        checkAddress(address);
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id='" + id + '\'' +
+                ", sum=" + sum +
+                ", products=" + products +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cart cart = (Cart) o;
+        return Objects.equals(id, cart.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public List<Product> getProducts(){
@@ -48,5 +80,15 @@ public class Cart {
 
     public String getId() {
         return id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    private void checkAddress(String address){
+        if (address.isBlank()){
+            throw new CustomerAdressEmptyException();
+        }
     }
 }
