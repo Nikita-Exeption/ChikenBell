@@ -14,7 +14,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product create(String title, BigDecimal price) {
-        checkProduct(title, price);
+        checkProduct(title);
         Product product = new Product(title, price);
         products.add(product);
         return product;
@@ -23,10 +23,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product update(String id, String title, BigDecimal price) {
         Product product = getById(id).orElseThrow(ProductNotFoundException::new);
-        products.remove(product);
         product.setTitle(title);
         product.setPrice(price);
-        products.add(product);
         return product;
     }
 
@@ -36,8 +34,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Optional<Product> getByTitle(String title) {
+        return products.stream().filter(x -> x.getTitle().equals(title)).findFirst();
+    }
+
+    @Override
     public Collection<Product> getAll() {
-        return getProducts();
+        return Collections.unmodifiableSet(products);
     }
 
     @Override
@@ -45,18 +48,9 @@ public class ProductServiceImpl implements ProductService {
         products.remove(getById(id).orElseThrow(ProductNotFoundException::new));
     }
 
-    private Set<Product> getProducts(){
-        return Collections.unmodifiableSet(products);
-    }
-
-    private void checkProduct(String title, BigDecimal price){
-        if (title.isBlank() || price == null){
-            throw new NullPointerException();
-        }
-        for (Product p : products){
-            if (p.getTitle().equals(title)){
-                throw new ProductUniqueException();
-            }
+    private void checkProduct(String title){
+        if (getByTitle(title).isPresent()){
+            throw new ProductUniqueException();
         }
     }
 }

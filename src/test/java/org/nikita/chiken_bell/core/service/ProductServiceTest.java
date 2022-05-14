@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.nikita.chiken_bell.core.entity.Product;
 import org.nikita.chiken_bell.core.exception.ProductNotFoundException;
+import org.nikita.chiken_bell.core.exception.ProductUniqueException;
 import org.nikita.chiken_bell.core.service.impl.ProductServiceImpl;
 
 import java.math.BigDecimal;
@@ -74,5 +75,10 @@ class ProductServiceTest {
     @Test
     void testInitProductServiceWithNull(){
         assertThrows(NullPointerException.class, () -> service.create(null, BigDecimal.TEN));
+    }
+
+    @Test
+    void testUniqueProductTitle(){
+        assertThrows(ProductUniqueException.class, () -> service.create("Milk", BigDecimal.TEN));
     }
 }
