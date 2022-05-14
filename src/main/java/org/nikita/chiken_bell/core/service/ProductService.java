@@ -2,16 +2,19 @@ package org.nikita.chiken_bell.core.service;
 
 import org.nikita.chiken_bell.core.entity.Product;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Optional;
 
 public interface ProductService {
 
-    void save(Product product);
+    Product create(String title, BigDecimal price);
 
-    Optional<Product> findById(String  id);
+    Optional<Product> getById(String id);
 
-    List<Product> findAll();
+    Collection<Product> getAll();
 
     void deleteById(String id);
+    //update
+    Product update(String id, String title, BigDecimal price);
 }
