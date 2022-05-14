@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductServiceTest {
 
-    private final ProductServiceImpl service = new ProductServiceImpl();
+    private final ProductService service = new ProductServiceImpl();
     private Product prod;
 
     private static final String TITLE = "Apple";
@@ -24,11 +24,11 @@ class ProductServiceTest {
 
     @Test
     void testCreate() {
-        assertEquals(1, service.getProducts().size());
+        assertEquals(1, service.getAll().size());
         Product product = service.create(TITLE, BigDecimal.TEN);
 
         assertNotNull(service.getById(product.getId()));
-        assertEquals(2, service.getProducts().size());
+        assertEquals(2, service.getAll().size());
     }
 
     @Test

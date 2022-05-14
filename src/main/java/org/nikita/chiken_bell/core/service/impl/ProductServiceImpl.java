@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Optional<Product> getById(String id) {
-        return Optional.of(products.stream().filter(x -> x.getId().equals(id)).findFirst().orElseThrow(ProductNotFoundException::new));
+        return products.stream().filter(x -> x.getId().equals(id)).findFirst();
     }
 
     @Override
@@ -44,12 +44,12 @@ public class ProductServiceImpl implements ProductService {
         products.remove(getById(id).orElseThrow(ProductNotFoundException::new));
     }
 
-    public Set<Product> getProducts(){
+    private Set<Product> getProducts(){
         return Collections.unmodifiableSet(products);
     }
 
     private void checkProduct(String title, BigDecimal price){
-        if (title.isBlank() || price == null){
+        if (title.isBlank() || price == null || products.contains(create(title, price))){
             throw new NullPointerException();
         }
     }
