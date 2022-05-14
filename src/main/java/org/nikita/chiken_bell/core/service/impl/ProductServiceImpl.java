@@ -2,6 +2,7 @@ package org.nikita.chiken_bell.core.service.impl;
 
 import org.nikita.chiken_bell.core.entity.Product;
 import org.nikita.chiken_bell.core.exception.ProductNotFoundException;
+import org.nikita.chiken_bell.core.exception.ProductUniqueException;
 import org.nikita.chiken_bell.core.service.ProductService;
 
 import java.math.BigDecimal;
@@ -49,8 +50,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private void checkProduct(String title, BigDecimal price){
-        if (title.isBlank() || price == null || products.contains(create(title, price))){
+        if (title.isBlank() || price == null){
             throw new NullPointerException();
+        }
+        for (Product p : products){
+            if (p.getTitle().equals(title)){
+                throw new ProductUniqueException();
+            }
         }
     }
 }
