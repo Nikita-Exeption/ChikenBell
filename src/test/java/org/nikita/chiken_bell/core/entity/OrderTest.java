@@ -6,12 +6,15 @@ import org.nikita.chiken_bell.core.exception.CustomerAdressEmptyException;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class OrderTest {
 
     private static Cart cart;
+
+    private static final String CUSTOMER_NAME = "Nik";
+    private static final String CUSTOMER_PHONE = "123-456-78-90";
+    private static final String CUSTOMER_ADDRESS = "Address";
 
     @BeforeAll
     static void init(){
@@ -22,27 +25,32 @@ class OrderTest {
 
     @Test
     void testInitOrderWithDelivery(){
-        Customer customer = new Customer("Nik", "123-456-78-90", "Adress");
+        Customer customer = new Customer(CUSTOMER_NAME, CUSTOMER_PHONE, CUSTOMER_ADDRESS);
         Order order = new Order(cart, customer, true);
 
-        BigDecimal expected = BigDecimal.TEN;
-        assertEquals(expected, order.getSum());
+        assertNotNull(order.getId());
+        assertEquals(cart.getSum(), order.getSum());
+        assertEquals(CUSTOMER_ADDRESS, order.getDeliveryAddress());
+        assertTrue(order.isDelivery());
+        //check product list
+        assertTrue(cart.getProducts().containsAll(order.getProducts()));
     }
 
     @Test
     void testInitOrderWithoutDelivery(){
-        Customer customer = new Customer("Nik", "123-456-78-90", "Adress");
+        Customer customer = new Customer(CUSTOMER_NAME, CUSTOMER_PHONE, CUSTOMER_ADDRESS);
         Order order = new Order(cart, customer, false);
 
         BigDecimal expected = BigDecimal.TEN;
-        assertEquals(1,order.getProducts().size());
+        // check product list
+        assertTrue(cart.getProducts().containsAll(order.getProducts()));
+
         assertEquals(expected, order.getSum());
     }
 
     @Test
-    void testInitOrderWithDeliveryButNotHaveAdress(){
-        Customer customer = new Customer("Nik", "123-456-78-90");
+    void testInitOrderWithDeliveryButNotHaveAddress(){
+        Customer customer = new Customer(CUSTOMER_NAME, CUSTOMER_PHONE);
         assertThrows(CustomerAdressEmptyException.class, ()-> new Order(cart, customer, true));
     }
-
 }

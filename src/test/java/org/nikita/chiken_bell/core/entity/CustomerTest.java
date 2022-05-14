@@ -16,8 +16,9 @@ class CustomerTest {
     void testInitCustomerWithCorrectPHONE(){
         Customer customer = new Customer(NAME, PHONE, ADRESS);
 
+        assertNotNull(customer.getId());
         assertEquals(NAME, customer.getName());
-        assertEquals(ADRESS, customer.getAdress());
+        assertEquals(ADRESS, customer.getAddress());
         assertEquals(PHONE, customer.getPhone());
     }
 
@@ -35,11 +36,25 @@ class CustomerTest {
     void testInitCustomerWithoutADRESS(){
         Customer customer = new Customer(NAME, PHONE);
 
-        assertNull(customer.getAdress());
+        assertNull(customer.getAddress());
 
-        customer.setAdress(ADRESS);
+        customer.setAddress(ADRESS);
 
-        assertNotNull(customer.getAdress());
+        assertNotNull(customer.getAddress());
+        assertEquals(ADRESS, customer.getAddress());
+    }
+
+    @Test
+    void testEqualsSameObjects(){
+        Customer customer = new Customer(NAME, PHONE);
+        assertSame(customer, customer);
+    }
+
+    @Test
+    void testEqualsNotSameObjects(){
+        Customer customer = new Customer(NAME, PHONE);
+        Customer customer1 = new Customer("Jack", "012-345-67-89");
+        assertNotSame(customer, customer1);
     }
 
 }

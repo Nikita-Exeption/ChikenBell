@@ -3,24 +3,29 @@ package org.nikita.chiken_bell.core.entity;
 import org.nikita.chiken_bell.core.exception.PhoneEmptyException;
 import org.nikita.chiken_bell.core.exception.PhoneIncorrectException;
 
+import java.util.Objects;
+import java.util.UUID;
+
 public class Customer {
+
+    private final String id;
 
     private final String name;
 
     private final String phone;
 
-    private String adress;
-
+    private String address;
 
     public Customer(String name, String phone){
-        phoneEmptyAndCorrectCheck(phone);
+        checkPhone(phone);
+        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.phone = phone;
     }
 
-    public Customer(String name, String phone, String adress){
+    public Customer(String name, String phone, String address){
         this(name, phone);
-        this.adress = adress;
+        this.address = address;
     }
 
     public String getName() {
@@ -31,22 +36,41 @@ public class Customer {
         return phone;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    private void phoneEmptyAndCorrectCheck(String phone){
-        if (phone.isBlank()){
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(id, customer.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    private void checkPhone(String phone){
+        if(phone.isBlank()){
             throw new PhoneEmptyException();
         }
         if(!phone.matches("[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}")){
             throw new PhoneIncorrectException();
         }
     }
+
+
 
 
 }
