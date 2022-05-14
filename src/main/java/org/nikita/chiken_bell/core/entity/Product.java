@@ -1,6 +1,7 @@
 package org.nikita.chiken_bell.core.entity;
 
 import org.nikita.chiken_bell.core.exception.ProductNegativePriceException;
+import org.nikita.chiken_bell.core.exception.ProductTitleBlankException;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -65,9 +66,9 @@ public class Product {
 
     private void checkProduct(String title, BigDecimal price){
         if (title.isBlank()){
-            throw new NullPointerException();
+            throw new ProductTitleBlankException();
         }
-        if (price.longValue() <= 0){
+        if (price.signum() <= 0){
             throw new ProductNegativePriceException();
         }
     }
