@@ -76,7 +76,7 @@ class CustomerServiceTest {
     }
 
     @Test
-    void getById() {
+    void testGetById() {
         Customer get = service.getById(customer.getId()).orElseThrow(CustomerNotFoundException::new);
 
         assertEquals(get.getId(), customer.getId());
@@ -86,12 +86,12 @@ class CustomerServiceTest {
     }
 
     @Test
-    void getCustomerNotFound(){
+    void testGetCustomerNotFound(){
         assertThrows(CustomerNotFoundException.class, () -> service.deleteById("456-098-56-78"));
     }
 
     @Test
-    void getByPhone() {
+    void testGetByPhone() {
         Customer getByPhone = service.getByPhone(customer.getPhone()).orElseThrow(CustomerNotFoundException::new);
 
         assertEquals(customer.getId(), getByPhone.getId());
@@ -101,7 +101,7 @@ class CustomerServiceTest {
     }
 
     @Test
-    void getAll() {
+    void testGetAll() {
         assertEquals(1, service.getAll().size());
 
         service.create("Mike", "321-456-78-09");
@@ -110,7 +110,7 @@ class CustomerServiceTest {
     }
 
     @Test
-    void deleteById() {
+    void testDeleteById() {
         assertEquals(1, service.getAll().size());
 
         service.deleteById(customer.getId());
