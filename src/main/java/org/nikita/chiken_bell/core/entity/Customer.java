@@ -10,9 +10,9 @@ public class Customer {
 
     private final String id;
 
-    private final String name;
+    private String name;
 
-    private final String phone;
+    private String phone;
 
     private String address;
 
@@ -71,6 +71,11 @@ public class Customer {
     }
 
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
-
+    public void setPhone(String phone){
+        this.phone = phone;
+    }
 }
