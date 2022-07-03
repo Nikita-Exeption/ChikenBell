@@ -14,6 +14,8 @@ public interface ProductService {
 
     Optional<Product> getById(String id);
 
+    Optional<Product> getByTitle(String title);
+
     Collection<Product> getAll();
 
     void deleteById(String id);
