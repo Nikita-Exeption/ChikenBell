@@ -48,14 +48,6 @@ public class Customer {
         return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,4 +69,13 @@ public class Customer {
             throw new PhoneIncorrectException();
         }
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhone(String phone){
+        this.phone = phone;
+    }
+
 }
