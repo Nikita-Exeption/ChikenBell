@@ -1,10 +1,11 @@
-package org.nikita.chiken_bell.core.service;
+package org.nikita.chiken_bell.core.service.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.nikita.chiken_bell.core.entity.Product;
 import org.nikita.chiken_bell.core.exception.ProductNotFoundException;
 import org.nikita.chiken_bell.core.exception.ProductUniqueException;
+import org.nikita.chiken_bell.core.service.ProductService;
 import org.nikita.chiken_bell.core.service.impl.ProductServiceImpl;
 
 import java.math.BigDecimal;
