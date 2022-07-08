@@ -22,14 +22,6 @@ public class CustomerServiceImpl implements CustomerService {
         return customer;
     }
 
-//    @Override
-//    public Customer update(String id, String name, String phone) {
-//        Customer customer = getById(id).orElseThrow(CustomerNotFoundException::new);
-//        customer.setName(name);
-//        customer.setPhone(phone);
-//        return customer;
-//    }
-
     @Override
     public Customer update(String id, String name, String phone, String address) {
         Customer customer =getById(id).orElseThrow(NotFoundCustomerException::new);
