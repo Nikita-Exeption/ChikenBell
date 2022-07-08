@@ -8,6 +8,7 @@ import org.nikita.chiken_bell.core.entity.Order;
 import org.nikita.chiken_bell.core.exception.OrderNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,7 +39,11 @@ class OrderServiceImplTest {
     void getByIdPositiveCase() {
         assertNotNull(service.getById(order.getId()));
 
-        Order getOrder = service.getById(order.getId()).orElseThrow(OrderNotFoundException::new);
+        Optional<Order> getOptionalOrder = service.getById(order.getId());
+
+        assertTrue(getOptionalOrder.isPresent());
+
+        Order getOrder = getOptionalOrder.get();
 
         assertEquals(getOrder.getId(), order.getId());
         assertEquals(getOrder.getProducts(), order.getProducts());

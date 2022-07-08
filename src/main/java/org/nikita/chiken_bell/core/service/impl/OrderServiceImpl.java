@@ -6,10 +6,7 @@ import org.nikita.chiken_bell.core.entity.Order;
 import org.nikita.chiken_bell.core.exception.OrderNotFoundException;
 import org.nikita.chiken_bell.core.service.OrderService;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class OrderServiceImpl implements OrderService {
 
@@ -29,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Collection<Order> getAll() {
-        return orders;
+        return Collections.unmodifiableList(orders);
     }
 
     @Override
