@@ -3,7 +3,7 @@ package org.nikita.chiken_bell.core.service.impl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.nikita.chiken_bell.core.entity.Customer;
-import org.nikita.chiken_bell.core.exception.PhoneExistException;
+import org.nikita.chiken_bell.core.exception.PhoneAlreadyExistException;
 
 import java.util.Optional;
 import java.util.Set;
@@ -40,7 +40,7 @@ class CustomerServiceImplTest {
 
     @Test
     void testCreateExistPhone(){
-        assertThrows(PhoneExistException.class, () -> service.create(NAME, PHONE, ADDRESS));
+        assertThrows(PhoneAlreadyExistException.class, () -> service.create(NAME, PHONE, ADDRESS));
     }
 
     @Test
@@ -73,7 +73,7 @@ class CustomerServiceImplTest {
 
     @Test
     void testGetByPhone() {
-        Optional<Customer> getOptionalCustomer = service.getByPhone(customer.getPhone());
+        Optional<Customer> getOptionalCustomer = service.findByPhone(customer.getPhone());
 
         assertTrue(getOptionalCustomer.isPresent());
 

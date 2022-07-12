@@ -13,7 +13,7 @@ public interface CustomerService {
 
     Optional<Customer> getById(String id);
 
-    Optional<Customer> getByPhone(String phone);
+    Optional<Customer> findByPhone(String phone);
 
     Collection<Customer> getAll();
 
