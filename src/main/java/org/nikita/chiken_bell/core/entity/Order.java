@@ -18,6 +18,8 @@ public class Order {
 
     private final boolean isDelivery;
 
+    private OrderStatus status;
+
     private final List<Product> products;
 
     public Order(Cart cart, Customer customer, boolean isDelivery){
@@ -27,6 +29,7 @@ public class Order {
         this.sum = cart.getSum();
         this.deliveryAddress = customer.getAddress();
         this.products = cart.getProducts();
+        this.status = OrderStatus.NEW;
     }
 
     public BigDecimal getSum() {
@@ -47,6 +50,14 @@ public class Order {
 
     public boolean isDelivery() {
         return isDelivery;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setOrderStatus(OrderStatus status){
+        this.status = status;
     }
 
     @Override

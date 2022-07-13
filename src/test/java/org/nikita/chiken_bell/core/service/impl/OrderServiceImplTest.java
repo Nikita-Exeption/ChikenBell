@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.nikita.chiken_bell.core.entity.Cart;
 import org.nikita.chiken_bell.core.entity.Customer;
 import org.nikita.chiken_bell.core.entity.Order;
-import org.nikita.chiken_bell.core.exception.OrderNotFoundException;
+import org.nikita.chiken_bell.core.entity.OrderStatus;
+import org.nikita.chiken_bell.core.exception.InvalidOrderStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +37,15 @@ class OrderServiceImplTest {
     }
 
     @Test
+    void testCreateAndCheckThatAllNewOrderHaveStatusNEW(){
+        assertEquals(order.getStatus(), OrderStatus.NEW);
+
+        Order newOrder = service.create(CART, CUSTOMER, false);
+
+        assertEquals(List.of(OrderStatus.NEW, OrderStatus.NEW), List.of(order.getStatus(), newOrder.getStatus()));
+    }
+
+    @Test
     void getByIdPositiveCase() {
         assertNotNull(service.getById(order.getId()));
 
@@ -52,12 +62,41 @@ class OrderServiceImplTest {
     }
 
     @Test
-    void getAll() {
+    void testFindByStatus(){
+        assertEquals(Optional.of(List.of(order)), service.findByStatus(order.getStatus()));
+
+        Order newOrder = service.create(CART, CUSTOMER, true);
+
+        assertEquals(Optional.of(List.of(order, newOrder)), service.findByStatus(order.getStatus()));
+    }
+
+    @Test
+    void testGetAll() {
         assertEquals(List.of(order), service.getAll());
 
         Order newOrder = service.create(CART, CUSTOMER, false);
 
         assertEquals(List.of(order, newOrder), service.getAll());
+    }
+
+    @Test
+    void testUpdateStatus(){
+        assertEquals(order.getStatus(), OrderStatus.NEW);
+
+        service.updateStatus(order.getId(), OrderStatus.READY);
+
+        assertEquals(order.getStatus(), OrderStatus.READY);
+    }
+
+    @Test
+    void testUpdateStatusNegativeCase(){
+        assertEquals(order.getStatus(), OrderStatus.NEW);
+
+        service.updateStatus(order.getId(), OrderStatus.DONE);
+
+        assertEquals(order.getStatus(), OrderStatus.DONE);
+
+        assertThrows(InvalidOrderStatusException.class, () -> service.updateStatus(order.getId(), OrderStatus.READY));
     }
 
     @Test
