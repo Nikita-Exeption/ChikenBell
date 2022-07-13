@@ -87,13 +87,4 @@ public class Order {
             throw new CustomerAdressEmptyException();
         }
     }
-
-    public enum OrderStatus{
-        NEW,
-        ACCEPTED,
-        CANCELED,
-        READY,
-        IN_ROUTE,
-        DONE
-    }
 }

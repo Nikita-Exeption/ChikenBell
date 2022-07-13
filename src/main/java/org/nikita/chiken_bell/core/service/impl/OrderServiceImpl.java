@@ -3,6 +3,8 @@ package org.nikita.chiken_bell.core.service.impl;
 import org.nikita.chiken_bell.core.entity.Cart;
 import org.nikita.chiken_bell.core.entity.Customer;
 import org.nikita.chiken_bell.core.entity.Order;
+import org.nikita.chiken_bell.core.entity.OrderStatus;
+import org.nikita.chiken_bell.core.exception.InvalidOrderStatusException;
 import org.nikita.chiken_bell.core.exception.OrderNotFoundException;
 import org.nikita.chiken_bell.core.service.OrderService;
 
@@ -26,8 +28,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Optional<List<Order>> findByStatus(Order.OrderStatus status) {
-        return Optional.of(orders.stream().filter(x -> x.getStatus() == status).collect(Collectors.toList()));
+    public List<Order> findByStatus(OrderStatus status) {
+        return orders.stream().filter(x -> x.getStatus() == status).collect(Collectors.toList());
     }
 
     @Override
@@ -36,8 +38,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order updateStatus(String id, Order.OrderStatus status) {
+    public Order updateStatus(String id, OrderStatus status) {
         Order order = getById(id).orElseThrow(OrderNotFoundException::new);
+        if (order.getStatus().getCapacity() > status.getCapacity()){
+            throw new InvalidOrderStatusException();
+        }
         order.setOrderStatus(status);
         return order;
     }
