@@ -7,6 +7,7 @@ import org.nikita.chiken_bell.core.exception.OrderNotFoundException;
 import org.nikita.chiken_bell.core.service.OrderService;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class OrderServiceImpl implements OrderService {
 
@@ -25,8 +26,20 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Optional<List<Order>> findByStatus(Order.OrderStatus status) {
+        return Optional.of(orders.stream().filter(x -> x.getStatus() == status).collect(Collectors.toList()));
+    }
+
+    @Override
     public Collection<Order> getAll() {
         return Collections.unmodifiableList(orders);
+    }
+
+    @Override
+    public Order updateStatus(String id, Order.OrderStatus status) {
+        Order order = getById(id).orElseThrow(OrderNotFoundException::new);
+        order.setOrderStatus(status);
+        return order;
     }
 
     @Override

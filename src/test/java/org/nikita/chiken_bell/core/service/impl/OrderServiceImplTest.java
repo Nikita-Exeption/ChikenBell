@@ -52,12 +52,30 @@ class OrderServiceImplTest {
     }
 
     @Test
-    void getAll() {
+    void testFindByStatus(){
+        assertEquals(Optional.of(List.of(order)), service.findByStatus(order.getStatus()));
+
+        Order newOrder = service.create(CART, CUSTOMER, true);
+
+        assertEquals(Optional.of(List.of(order, newOrder)), service.findByStatus(order.getStatus()));
+    }
+
+    @Test
+    void testGetAll() {
         assertEquals(List.of(order), service.getAll());
 
         Order newOrder = service.create(CART, CUSTOMER, false);
 
         assertEquals(List.of(order, newOrder), service.getAll());
+    }
+
+    @Test
+    void testUpdateStatus(){
+        assertEquals(order.getStatus(), Order.OrderStatus.NEW);
+
+        service.updateStatus(order.getId(), Order.OrderStatus.READY);
+
+        assertEquals(order.getStatus(), Order.OrderStatus.READY);
     }
 
     @Test
